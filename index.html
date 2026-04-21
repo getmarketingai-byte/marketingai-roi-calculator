@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Marketing ROI Calculator — Free Tool for Australian Businesses</title>
+  <meta name="description" content="Calculate your marketing ROI instantly. Free marketing return on investment calculator. See if your campaigns are profitable.">
+  <meta property="og:title" content="Marketing ROI Calculator — Free Tool for Australian Businesses">
+  <meta property="og:description" content="Calculate your marketing ROI instantly. Free marketing return on investment calculator. See if your campaigns are profitable.">
+  <meta property="og:type" content="website">
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7076137753154472"
+      crossorigin="anonymous"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f8f9fa;
+      color: #1a1a2e;
+      line-height: 1.6;
+    }
+
+    header {
+      background: #1a1a2e;
+      color: #fff;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    header .logo {
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: #fff;
+      text-decoration: none;
+    }
+
+    header .logo span { color: #6c63ff; }
+
+    .hero {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 60%, #0f3460 100%);
+      color: #fff;
+      padding: 60px 24px 48px;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 800;
+      margin-bottom: 12px;
+      letter-spacing: -0.5px;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      opacity: 0.85;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 32px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+      margin: -28px auto 32px;
+    }
+
+    .calc-section h2 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: #1a1a2e;
+    }
+
+    .input-group {
+      margin-bottom: 20px;
+    }
+
+    .input-group label {
+      display: block;
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-bottom: 6px;
+      color: #444;
+    }
+
+    .input-group input[type="number"] {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 1.05rem;
+      transition: border-color 0.2s;
+      outline: none;
+    }
+
+    .input-group input[type="number"]:focus {
+      border-color: #6c63ff;
+    }
+
+    .calc-btn {
+      width: 100%;
+      padding: 14px;
+      background: #6c63ff;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    .calc-btn:hover { background: #574fd6; }
+    .calc-btn:active { transform: scale(0.99); }
+
+    .result-box {
+      margin-top: 24px;
+      padding: 24px;
+      border-radius: 10px;
+      background: #f3f1ff;
+      border-left: 4px solid #6c63ff;
+      display: none;
+    }
+
+    .result-box.show { display: block; }
+
+    .result-primary {
+      display: flex;
+      align-items: flex-end;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+
+    .result-item {}
+
+    .result-rate {
+      font-size: 2.8rem;
+      font-weight: 800;
+      color: #1a1a2e;
+      line-height: 1;
+    }
+
+    .result-label {
+      font-size: 0.9rem;
+      color: #666;
+      margin-top: 4px;
+    }
+
+    .result-secondary {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #1a1a2e;
+      line-height: 1;
+    }
+
+    .result-tertiary {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #1a1a2e;
+      line-height: 1;
+    }
+
+    .benchmark {
+      background: #fff;
+      border-radius: 8px;
+      padding: 14px 16px;
+      font-size: 0.95rem;
+      color: #444;
+    }
+
+    .benchmark strong { color: #1a1a2e; }
+
+    .benchmark .status {
+      display: inline-block;
+      margin-top: 6px;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    .status.good { background: #d1fae5; color: #065f46; }
+    .status.average { background: #fef3c7; color: #92400e; }
+    .status.poor { background: #fee2e2; color: #991b1b; }
+
+    .error-msg {
+      color: #dc2626;
+      font-size: 0.9rem;
+      margin-top: 10px;
+      display: none;
+    }
+
+    .error-msg.show { display: block; }
+
+    .benchmarks-section {
+      margin: 0 auto 32px;
+    }
+
+    .benchmarks-section h2 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .benchmarks-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+
+    .benchmarks-table th {
+      text-align: left;
+      padding: 10px 14px;
+      background: #1a1a2e;
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .benchmarks-table td {
+      padding: 10px 14px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .benchmarks-table tr:nth-child(even) td { background: #f8f9fa; }
+    .benchmarks-table tr:hover td { background: #f3f1ff; }
+
+    .optin-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 28px 32px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+      margin: 0 auto 32px;
+      text-align: center;
+    }
+
+    .optin-card h2 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .optin-card p {
+      color: #666;
+      font-size: 0.95rem;
+      margin-bottom: 20px;
+    }
+
+    .optin-form .input-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .optin-form input[type="email"] {
+      flex: 1 1 220px;
+      padding: 12px 16px;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .optin-form input[type="email"]:focus { border-color: #6c63ff; }
+
+    .optin-form .submit-btn {
+      flex: 0 0 auto;
+      padding: 12px 20px;
+      background: #6c63ff;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .optin-form .submit-btn:hover { background: #574fd6; }
+
+    .consent-row {
+      margin-top: 12px;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      text-align: left;
+    }
+
+    .consent-row input[type="checkbox"] {
+      margin-top: 3px;
+      accent-color: #6c63ff;
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+    }
+
+    .consent-row label {
+      font-size: 0.82rem;
+      color: #666;
+    }
+
+    .optin-success {
+      display: none;
+      color: #065f46;
+      background: #d1fae5;
+      border-radius: 8px;
+      padding: 14px 18px;
+      margin-top: 16px;
+      font-weight: 600;
+    }
+
+    .optin-success.show { display: block; }
+
+    .optin-error {
+      display: none;
+      color: #991b1b;
+      font-size: 0.85rem;
+      margin-top: 8px;
+    }
+
+    .optin-error.show { display: block; }
+
+    .cta-card {
+      background: linear-gradient(135deg, #1a1a2e 0%, #0f3460 100%);
+      border-radius: 12px;
+      padding: 32px;
+      color: #fff;
+      text-align: center;
+      margin: 0 auto 40px;
+    }
+
+    .cta-card h2 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .cta-card p {
+      opacity: 0.85;
+      margin-bottom: 24px;
+      font-size: 0.95rem;
+    }
+
+    .cta-card .price-tag {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .cta-card .price-tag span {
+      font-size: 1rem;
+      font-weight: 400;
+      opacity: 0.7;
+    }
+
+    .cta-btn {
+      display: inline-block;
+      padding: 14px 32px;
+      background: #6c63ff;
+      color: #fff;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1rem;
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    .cta-btn:hover { background: #574fd6; transform: translateY(-1px); }
+
+    .cta-card .disclaimer {
+      font-size: 0.78rem;
+      opacity: 0.55;
+      margin-top: 14px;
+    }
+
+    .explainer {
+      background: #fff;
+      border-radius: 12px;
+      padding: 28px 32px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+      margin: 0 auto 32px;
+    }
+
+    .explainer h2 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .explainer p { color: #444; margin-bottom: 12px; font-size: 0.95rem; }
+    .explainer p:last-child { margin-bottom: 0; }
+
+    footer {
+      background: #1a1a2e;
+      color: rgba(255,255,255,0.5);
+      text-align: center;
+      padding: 24px;
+      font-size: 0.82rem;
+    }
+
+    footer a { color: rgba(255,255,255,0.6); text-decoration: none; }
+    footer a:hover { color: #fff; }
+
+    @media (max-width: 500px) {
+      .card, .optin-card, .cta-card, .explainer, .benchmarks-section { border-radius: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <a href="https://marketing-ai-psi-nine.vercel.app/" class="logo">Marketing<span>AI</span></a>
+</header>
+
+<div class="hero">
+  <h1>Marketing ROI Calculator</h1>
+  <p>Calculate your marketing return on investment instantly — and see how your campaigns stack up against Australian benchmarks.</p>
+</div>
+
+<div class="container">
+
+  <!-- Calculator Card -->
+  <div class="card calc-section">
+    <h2>Calculate Your Marketing ROI</h2>
+
+    <div class="input-group">
+      <label for="revenue">Revenue Generated from Campaign ($)</label>
+      <input type="number" id="revenue" min="0" step="0.01" placeholder="e.g. 12000" inputmode="decimal">
+    </div>
+
+    <div class="input-group">
+      <label for="cost">Marketing Investment ($)</label>
+      <input type="number" id="cost" min="0.01" step="0.01" placeholder="e.g. 3000" inputmode="decimal">
+    </div>
+
+    <button class="calc-btn" onclick="calculate()">Calculate ROI</button>
+
+    <div class="error-msg" id="error-msg">Please enter valid numbers. Marketing investment must be greater than zero.</div>
+
+    <div class="result-box" id="result-box">
+      <div class="result-primary">
+        <div class="result-item">
+          <div class="result-rate" id="result-roi">--</div>
+          <div class="result-label">Marketing ROI</div>
+        </div>
+        <div class="result-item">
+          <div class="result-secondary" id="result-net-profit">--</div>
+          <div class="result-label">Net profit from marketing</div>
+        </div>
+        <div class="result-item">
+          <div class="result-tertiary" id="result-multiple">--</div>
+          <div class="result-label">return per $1 spent</div>
+        </div>
+      </div>
+      <div class="benchmark" id="benchmark-text"></div>
+    </div>
+  </div>
+
+  <!-- AU Benchmarks Table -->
+  <div class="card benchmarks-section">
+    <h2>Marketing ROI Benchmarks by Channel (AU)</h2>
+    <table class="benchmarks-table">
+      <thead>
+        <tr>
+          <th>Channel / Industry</th>
+          <th>Typical ROI</th>
+          <th>Rating</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Email Marketing</td><td>300–4200%</td><td>Good above 400%</td></tr>
+        <tr><td>Content Marketing / SEO</td><td>200–800%</td><td>Good above 300%</td></tr>
+        <tr><td>Social Media (organic)</td><td>100–400%</td><td>Good above 200%</td></tr>
+        <tr><td>Google Ads (search)</td><td>100–300%</td><td>Good above 200%</td></tr>
+        <tr><td>Meta Ads (paid social)</td><td>100–250%</td><td>Good above 150%</td></tr>
+        <tr><td>Professional Services</td><td>150–400%</td><td>Good above 200%</td></tr>
+        <tr><td>eCommerce (general)</td><td>100–300%</td><td>Good above 200%</td></tr>
+        <tr><td>Overall AU SMB Average</td><td colspan="2"><strong>~100–200% across all channels</strong></td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:0.78rem;color:#888;margin-top:12px;">Sources: Australian marketing industry data, HubSpot Marketing ROI report, DMA benchmarks. Figures are indicative and vary by campaign type, industry, and business size.</p>
+  </div>
+
+  <!-- Email opt-in -->
+  <div class="optin-card">
+    <h2>Get a Free Marketing ROI Benchmarks Guide for Australian Businesses</h2>
+    <p>We'll send you a free breakdown of marketing ROI benchmarks across key Australian industries, plus practical tips to improve your returns.</p>
+
+    <form class="optin-form" id="optin-form" onsubmit="handleOptIn(event)">
+      <div class="input-row">
+        <input type="email" id="optin-email" placeholder="your@email.com" required>
+        <button type="submit" class="submit-btn">Send Me the Guide</button>
+      </div>
+      <div class="consent-row">
+        <input type="checkbox" id="consent" required>
+        <label for="consent">I agree to receive marketing emails from MarketingAI. You can unsubscribe at any time. We never share your data.</label>
+      </div>
+      <div class="optin-error" id="optin-error">Please check the consent box to continue.</div>
+    </form>
+
+    <div class="optin-success" id="optin-success">
+      Thanks! We will email your marketing ROI benchmarks guide shortly.
+    </div>
+  </div>
+
+  <!-- $149 CTA -->
+  <div class="cta-card">
+    <h2>Want a Done-With-You Marketing System? MarketingAI — $149 once-off setup.</h2>
+    <p>We set up your AI Content Engine, outbound lead sequence, and email nurture — ready to go in days, not months.</p>
+    <div class="price-tag">$149 AUD <span>one-time setup</span></div>
+    <a href="https://buy.stripe.com/cNi8wR0wZd8lePh01cbsc00" class="cta-btn">Get Started — $149 AUD</a>
+    <div class="disclaimer">Results vary. No guaranteed outcomes. Setup scope detailed on checkout page.</div>
+  </div>
+
+  <!-- Explainer copy -->
+  <div class="explainer">
+    <h2>What Is Marketing ROI?</h2>
+    <p>Marketing ROI (Return on Investment) measures how much revenue you generate for every dollar you invest in marketing. It's the clearest measure of whether your marketing spend is paying off — and it applies across every channel from Google Ads to content marketing to email.</p>
+    <p><strong>Formula:</strong> Marketing ROI = ((Revenue from Marketing − Marketing Cost) ÷ Marketing Cost) × 100</p>
+    <p>A Marketing ROI of 200% means you earned $3 in revenue for every $1 you spent — your cost back, plus twice as much again. For Australian SMBs, a Marketing ROI of 100–200% is considered average across most channels. Above 200% is strong performance.</p>
+    <p>A negative ROI means your campaign cost more than it generated. An ROI between 0% and 100% is technically profitable, but below what most AU businesses achieve when campaigns are properly optimised.</p>
+    <p>The most common causes of low marketing ROI are poor audience targeting, weak creative or copy, and a landing page that isn't converting. Fixing any one of these typically lifts ROI significantly — you don't need to overhaul your entire strategy to see results.</p>
+  </div>
+
+</div>
+
+<footer>
+  <p>2026 MarketingAI — Australian businesses only. Results are indicative. Marketing outcomes are not guaranteed.</p>
+</footer>
+
+<script>
+  function calculate() {
+    var revenueEl = document.getElementById('revenue');
+    var costEl = document.getElementById('cost');
+    var errorMsg = document.getElementById('error-msg');
+    var resultBox = document.getElementById('result-box');
+    var resultRoi = document.getElementById('result-roi');
+    var resultNetProfit = document.getElementById('result-net-profit');
+    var resultMultiple = document.getElementById('result-multiple');
+    var benchmarkText = document.getElementById('benchmark-text');
+
+    var revenue = parseFloat(revenueEl.value);
+    var cost = parseFloat(costEl.value);
+
+    if (isNaN(revenue) || isNaN(cost) || cost <= 0 || revenue < 0) {
+      errorMsg.classList.add('show');
+      resultBox.classList.remove('show');
+      return;
+    }
+
+    errorMsg.classList.remove('show');
+
+    var roi = ((revenue - cost) / cost) * 100;
+    var netProfit = revenue - cost;
+    var multiple = revenue / cost;
+
+    resultRoi.textContent = roi.toFixed(0) + '%';
+    resultNetProfit.textContent = (netProfit < 0 ? '-$' : '$') + Math.abs(netProfit).toLocaleString('en-AU', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+    resultMultiple.textContent = multiple.toFixed(2) + 'x return per $1 spent';
+
+    var statusClass, statusLabel, descText;
+
+    if (roi >= 200) {
+      statusClass = 'good';
+      statusLabel = 'Above Average';
+      descText = 'Industry average 100–200% ROI. Your result: <strong>' + roi.toFixed(0) + '%</strong> — above average. Strong performance. Focus on scaling what is working while maintaining spend efficiency.';
+    } else if (roi >= 0) {
+      statusClass = 'average';
+      statusLabel = 'Average';
+      descText = 'Industry average 100–200% ROI. Your result: <strong>' + roi.toFixed(0) + '%</strong> — in the average range. Profitable, but there\'s room to improve targeting, creative, or landing page conversion to push above 200%.';
+    } else {
+      statusClass = 'poor';
+      statusLabel = 'Negative ROI';
+      descText = 'Industry average 100–200% ROI. Your result: <strong>' + roi.toFixed(0) + '%</strong> — below breakeven. This campaign cost more than it returned. Review audience targeting, ad creative, and landing page conversion — these are the most common causes of negative ROI.';
+    }
+
+    benchmarkText.innerHTML = '<strong>AU Benchmark Comparison</strong><br><span class="status ' + statusClass + '">' + statusLabel + '</span><p style="margin-top:10px;font-size:0.9rem;color:#444;">' + descText + '</p>';
+
+    resultBox.classList.add('show');
+    resultBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' && (document.activeElement.id === 'revenue' || document.activeElement.id === 'cost')) {
+      calculate();
+    }
+  });
+
+  function handleOptIn(e) {
+    e.preventDefault();
+    var email = document.getElementById('optin-email').value;
+    var consent = document.getElementById('consent').checked;
+    var errorEl = document.getElementById('optin-error');
+    var successEl = document.getElementById('optin-success');
+
+    if (!consent) {
+      errorEl.classList.add('show');
+      return;
+    }
+
+    errorEl.classList.remove('show');
+
+    var formData = new FormData();
+    formData.append('fields[email]', email);
+    formData.append('ml-submit', '1');
+    formData.append('anticsrf', 'true');
+
+    fetch('https://assets.mailerlite.com/jsonp/2282416/forms/185339817098216933/subscribe', {
+      method: 'POST',
+      body: formData
+    }).then(function() {
+      document.getElementById('optin-form').style.display = 'none';
+      successEl.classList.add('show');
+    }).catch(function() {
+      document.getElementById('optin-form').style.display = 'none';
+      successEl.classList.add('show');
+    });
+  }
+</script>
+
+</body>
+</html>
