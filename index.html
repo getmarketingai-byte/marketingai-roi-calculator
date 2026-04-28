@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Marketing ROI Calculator — Is Your Marketing Paying Off? | MarketingAI</title>
-  <meta name="description" content="Free marketing ROI calculator for Australian businesses. Enter your spend and revenue to calculate your marketing return on investment and see how it benchmarks.">
+  <meta name="description" content="Free marketing ROI calculator for small businesses. Enter your spend and revenue to calculate your marketing return on investment and see how it benchmarks against industry averages.">
   <meta property="og:title" content="Marketing ROI Calculator — Is Your Marketing Paying Off? | MarketingAI">
-  <meta property="og:description" content="Free marketing ROI calculator for Australian businesses. Enter your spend and revenue to calculate your marketing return on investment and see how it benchmarks.">
+  <meta property="og:description" content="Free marketing ROI calculator for small businesses. Enter your spend and revenue to calculate your marketing return on investment and see how it benchmarks against industry averages.">
   <meta property="og:type" content="website">
   <!-- Schema.org JSON-LD Structured Data (NMA-554) -->
   <script type="application/ld+json">
@@ -458,6 +458,27 @@
       .card, .optin-card, .cta-card, .explainer, .benchmarks-section { border-radius: 0; }
     }
   </style>
+  <!-- Schema.org JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        "name": "Marketing ROI Calculator",
+        "applicationCategory": "https://schema.org/BusinessApplication",
+        "operatingSystem": "Web",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "AUD",
+          "availability": "https://schema.org/InStock"
+        },
+        "description": "Free marketing ROI calculator. Calculate return on investment for your marketing spend and compare against industry benchmarks."
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
 
@@ -527,31 +548,30 @@
     </div>
   </div>
 
-  <!-- AU Benchmarks Table -->
+  <!-- Benchmarks Table -->
   <div class="card benchmarks-section">
-    <h2>Marketing ROI Benchmarks by Channel (AU)</h2>
+    <h2>Marketing ROI Benchmarks by ROI Level</h2>
     <table class="benchmarks-table">
       <thead>
         <tr>
-          <th>Channel / Industry</th>
-          <th>Typical ROI</th>
-          <th>Rating</th>
+          <th>ROI Range</th>
+          <th>What It Means</th>
         </tr>
       </thead>
       <tbody>
-        <tr><td>Below 100%</td><td colspan="2">You spent more than you earned — reassess the channel</td></tr>
-        <tr><td>100–300%</td><td colspan="2">Positive but modest — look for efficiency improvements</td></tr>
-        <tr><td>300–600%</td><td colspan="2">Strong — scale what's working</td></tr>
-        <tr><td>600%+</td><td colspan="2">Excellent — protect and maintain the channel</td></tr>
+        <tr><td>Below 100%</td><td>You spent more than you earned — reassess the channel</td></tr>
+        <tr><td>100–300%</td><td>Positive but modest — look for efficiency improvements</td></tr>
+        <tr><td>300–600%</td><td>Strong — scale what's working</td></tr>
+        <tr><td>600%+</td><td>Excellent — protect and maintain the channel</td></tr>
       </tbody>
     </table>
-    <p style="font-size:0.78rem;color:#888;margin-top:12px;">Sources: Australian marketing industry data, HubSpot Marketing ROI report, DMA benchmarks. Figures are indicative and vary by campaign type, industry, and business size.</p>
+    <p style="font-size:0.78rem;color:#888;margin-top:12px;">Sources: HubSpot Marketing ROI report, DMA benchmarks, Mailchimp industry data. Figures are indicative and vary by campaign type, industry, and business size.</p>
   </div>
 
   <!-- Email opt-in -->
   <div class="optin-card">
-    <h2>Get a Free Marketing ROI Benchmarks Guide for Australian Businesses</h2>
-    <p>We'll send you a free breakdown of marketing ROI benchmarks across key Australian industries, plus practical tips to improve your returns.</p>
+    <h2>Get a Free Marketing ROI Benchmarks Guide</h2>
+    <p>We'll send you a free breakdown of marketing ROI benchmarks across key industries, plus practical tips to improve your returns.</p>
 
     <form class="optin-form" id="optin-form" onsubmit="handleOptIn(event)">
       <div class="input-row">
@@ -584,9 +604,9 @@
   </div>
 
     <h2>Want a Done-With-You Marketing System?</h2>
-    <p>Most Australian service businesses can improve their marketing ROI not by spending more, but by being more systematic about what they already do — consistent content, a proper follow-up sequence, and an email list that compounds over time. MarketingAI builds that system for $149 once-off.</p>
-    <div class="price-tag">$149 AUD <span>once-off setup</span></div>
-    <a href="https://buy.stripe.com/cNi8wR0wZd8lePh01cbsc00" class="cta-btn">See What's Included →</a>
+    <p>Most service businesses can improve their marketing ROI not by spending more, but by being more systematic about what they already do — consistent content, a proper follow-up sequence, and an email list that compounds over time. MarketingAI builds that system for a one-off setup fee.</p>
+    <div class="price-tag" id="roi-cta-price">$149 AUD <span>once-off setup</span></div>
+    <a href="https://buy.stripe.com/cNi8wR0wZd8lePh01cbsc00" class="cta-btn" onclick="if(typeof gtag==='function') gtag('event','calculator_cta',{tool_name:'roi'})">See What's Included →</a>
     <div class="disclaimer">Setup outcomes vary. No results guaranteed.</div>
   </div>
 
@@ -603,7 +623,7 @@
 </div>
 
 <footer>
-  <p>2026 MarketingAI — Australian businesses only. Results are indicative. Marketing outcomes are not guaranteed.</p>
+  <p>2026 MarketingAI — Results are indicative. Marketing outcomes are not guaranteed.</p>
 </footer>
 
 <script>
@@ -633,7 +653,7 @@
     var multiple = revenue / cost;
 
     resultRoi.textContent = roi.toFixed(0) + '%';
-    resultNetProfit.textContent = (netProfit < 0 ? '-$' : '$') + Math.abs(netProfit).toLocaleString('en-AU', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+    resultNetProfit.textContent = (netProfit < 0 ? '-$' : '$') + Math.abs(netProfit).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
     resultMultiple.textContent = multiple.toFixed(2) + 'x return per $1 spent';
 
     var statusClass, statusLabel, descText;
@@ -652,10 +672,11 @@
       descText = 'Industry average 100–200% ROI. Your result: <strong>' + roi.toFixed(0) + '%</strong> — below breakeven. This campaign cost more than it returned. Review audience targeting, ad creative, and landing page conversion — these are the most common causes of negative ROI.';
     }
 
-    benchmarkText.innerHTML = '<strong>AU Benchmark Comparison</strong><br><span class="status ' + statusClass + '">' + statusLabel + '</span><p style="margin-top:10px;font-size:0.9rem;color:#444;">' + descText + '</p>';
+    benchmarkText.innerHTML = '<strong>Benchmark Comparison</strong><br><span class="status ' + statusClass + '">' + statusLabel + '</span><p style="margin-top:10px;font-size:0.9rem;color:#444;">' + descText + '</p>';
 
     resultBox.classList.add('show');
     resultBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    if (typeof gtag === 'function') gtag('event', 'calculator_form_submit', { tool_name: 'roi' });
   }
 
   document.addEventListener('keydown', function(e) {
@@ -663,6 +684,27 @@
       calculate();
     }
   });
+
+  // Region-based CTA pricing
+  (function() {
+    var prices = { au: '$149 AUD', gb: '£99 GBP', nz: '$199 NZD', us: '$99 USD', ca: '$129 CAD' };
+    function detectRegion() {
+      try {
+        var tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+        if (/^Australia\//.test(tz)) return 'au';
+        if (/^Pacific\/Auckland/.test(tz)) return 'nz';
+        if (/^Europe\/London/.test(tz)) return 'gb';
+        if (/^America\/(Toronto|Vancouver|Edmonton|Winnipeg|Halifax|Regina|St_Johns|Moncton|Whitehorse|Iqaluit)/.test(tz)) return 'ca';
+        if (/^America\//.test(tz)) return 'us';
+      } catch(e) {}
+      return 'au';
+    }
+    var el = document.getElementById('roi-cta-price');
+    if (el) {
+      var r = detectRegion();
+      el.innerHTML = prices[r] + ' <span>once-off setup</span>';
+    }
+  })();
 
   function handleOptIn(e) {
     e.preventDefault();
@@ -689,6 +731,7 @@
     }).then(function() {
       document.getElementById('optin-form').style.display = 'none';
       successEl.classList.add('show');
+      if (typeof gtag === 'function') gtag('event', 'calculator_form_submit', { tool_name: 'roi' });
     }).catch(function() {
       document.getElementById('optin-form').style.display = 'none';
       successEl.classList.add('show');
@@ -722,7 +765,7 @@
       </div>
       <div class="footer-divider"></div>
       <div class="footer-bottom">
-        <p class="footer-credit">Part of the <strong>MarketingAI</strong> toolkit — Free marketing tools for Australian businesses</p>
+        <p class="footer-credit">Part of the <strong>MarketingAI</strong> toolkit — Free marketing tools for small businesses</p>
       </div>
     </div>
   </footer>
