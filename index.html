@@ -628,6 +628,7 @@
 
 <script>
   function calculate() {
+    if (typeof gtag === "function") { gtag("event", "calculator_submit", {calculator_name: "roi_calculator", page_title: document.title}); }
     var revenueEl = document.getElementById('revenue');
     var costEl = document.getElementById('cost');
     var errorMsg = document.getElementById('error-msg');
